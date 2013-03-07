@@ -11,3 +11,11 @@
 *.lai
 *.la
 *.a
+
+# emacs tmp file
+*~
+
+# build dir
+**/build/*
+**/build/**/*
+!**/build/README
