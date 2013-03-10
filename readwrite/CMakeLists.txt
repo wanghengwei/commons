@@ -1,5 +1,7 @@
-project (readandwrite)
+project (read-write)
 
-set (CMAKE_CXX_FLAGS "-std=c++11 -lpthread")
+set (CMAKE_C_COMPILER "clang")
+set (CMAKE_CXX_COMPILER "clang++")
+set (CMAKE_CXX_FLAGS "-std=c++11")
 
-add_executable (readandwrite src/main.cpp)
+add_executable (read-write src/main.cpp)

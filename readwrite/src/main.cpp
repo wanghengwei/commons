@@ -1,25 +1,26 @@
-#define _GLIBCXX_USE_NANOSLEEP 1
 #include "factory.h"
-#include "reader.h"
-#include "writer.h"
-#include "product_definition_map.h"
-#include "frequency_controller.h"
-#include "service_center.h"
+#include "products.h"
+#include "productionplans.h"
+#include <chrono>
+#include <functional>
 
 int main(int, char * [])
 {
-  Factory<Actor, DummyProductDefinitionMap, DummyFrequencyController> factory;
+  Factory<Actor, NeverProduce> rootFactory;
 
-  factory.registerProduct<Reader>(1, 0.5);
-  factory.registerProduct<Writer>(0.2, 0.1);
+  Factory<Reader, NormalDistribution<std::chrono::milliseconds>> rf;
+  Factory<Writer, UniformDistribution<std::chrono::seconds>> wf;
 
-  DummyServiceCenter serviceCenter;
-  serviceCenter.capacity(50);
+  rootFactory.add(rf);
+  rootFactory.add(wf);
+
+  //  ServiceCenter serviceCenter;
+  //serviceCenter.capacity(50);
 
   while (true)
     {
-      auto user = factory.create();
-      serviceCenter.accept(user);
+      auto actor = rootFactory.nextProduct();
+      //  serviceCenter.accept(actor);
     }
   return 0;
 }

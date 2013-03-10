@@ -7,6 +7,7 @@ struct DummyFrequencyController
   std::pair<TimePoint, std::type_index> next() { throw -1; }
 };
 
+//
 template<class TId, class TDuration = std::chrono::milliseconds, class TTimePoint = std::chrono::steady_clock::time_point>
 class RandomFrequencyController
 {

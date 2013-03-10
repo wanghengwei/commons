@@ -19,3 +19,6 @@
 **/build/*
 **/build/**/*
 !**/build/README
+
+# test dir
+test
