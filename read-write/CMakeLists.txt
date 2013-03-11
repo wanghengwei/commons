@@ -1,5 +1,5 @@
 include (cotire)
-
+cmake_minimum_required(VERSION 2.8.4)
 project (read-write)
 
 set (CMAKE_C_COMPILER "clang")
