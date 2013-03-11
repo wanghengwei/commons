@@ -1,3 +1,5 @@
+include (cotire)
+
 project (read-write)
 
 set (CMAKE_C_COMPILER "clang")

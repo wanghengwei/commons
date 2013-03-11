@@ -17,11 +17,15 @@ public:
 
   Product * nextProduct()
   {
-    auto x = std::min_element(_children.begin(), _children.end());
-    IFactory * f = x->nextProducingTime() > this->nextProducingTime() ? this : &*x;
-    std::this_thread::sleep_until(f->nextProducingTime());
-    f->setNextProduceTime();
-    return f->produce();
+    auto x = std::min_element(_children.begin(), _children.end()/*, TODO*/);
+    if (x->plan().next() > this->plan().next()) {
+      std::this_thread::sleep_until(plan().next());
+      return produce();
+    } 
+    else {
+      std::this_thread::sleep_until(x->plan().next());
+      return x->produce();
+    }
   }
 private:
 };
