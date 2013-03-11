@@ -1,45 +1,28 @@
 #pragma once
 
-#include <typeindex>
-#include <tuple>
-#include <thread>
 
 template<
-  class TB, 
-  template<class TProductType> class TProductDefinitionMap, 
-  class TFrequencyController
+  typename Product, 
+  typename ProductionPlan
 >
 class Factory
 {
-  typedef TProductDefinitionMap<TB> ProductDefinitionMap;
+  typedef Factory<Product, ProductionPlan> _Self;
 public:
-
-  template<class TD>
-  void registerProduct(double freq, double variant)
+  template<typename P, typename PP>
+  _Self& add(Factory<P, PP> const & child)
   {
-    typename ProductDefinitionMap::ItemType def(typeid(TD), []() { return new TD; });
-    _productDefinitionMap.insert(def);
-
-    _frequencyController.set(def.typeIndex(), freq, variant);
+    return *this;
   }
 
-  TB * create()
+  Product * nextProduct()
   {
-    //sleep until the time point when the next product should be produced
-    typename TFrequencyController::TimePoint nextTimePoint;
-    std::type_index productTypeIndex(typeid(TB));
-    std::tie(nextTimePoint, productTypeIndex) = _frequencyController.next();
-    std::this_thread::sleep_until(nextTimePoint);
-
-    auto def = _productDefinitionMap[productTypeIndex];
-
-    return def.instance();
+    auto x = std::min_element(_children.begin(), _children.end());
+    IFactory * f = x->nextProducingTime() > this->nextProducingTime() ? this : &*x;
+    std::this_thread::sleep_until(f->nextProducingTime());
+    f->setNextProduceTime();
+    return f->produce();
   }
-
 private:
-
-  ProductDefinitionMap _productDefinitionMap;
-  TFrequencyController _frequencyController;
-
 };
 
