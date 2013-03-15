@@ -21,8 +21,11 @@ bool zip_package::locate(std::string const & file_path)
 	return UNZ_OK == unzLocateFile(fh, file_path.c_str(), 1);
 }
 
-std::string zip_package::read_text()
+std::string zip_package::read(string const & file_path)
 {
+	if (!locate(file_path))
+		throw "Can't find the file";
+
 	if (UNZ_OK != unzOpenCurrentFile(fh))
 		throw "Can't open current file";
 
