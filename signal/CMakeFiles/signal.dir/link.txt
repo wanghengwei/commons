@@ -1,0 +1,1 @@
+/usr/bin/c++.exe  -std=c++11 -Wall -O3  -Wl,--enable-auto-import  CMakeFiles/signal.dir/main.cpp.o  -o signal.exe -Wl,--out-implib,libsignal.dll.a -Wl,--major-image-version,0,--minor-image-version,0  
