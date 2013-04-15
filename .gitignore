@@ -17,8 +17,6 @@
 
 # build dir
 **/build/*
-**/build/**/*
 !**/build/README
 
 # test dir
-tests
