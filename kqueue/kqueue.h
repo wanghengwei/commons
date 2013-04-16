@@ -60,6 +60,8 @@ namespace whw
     }
 
     int file_handle() const;
+
+    bool has_work() const;
     
   };
   

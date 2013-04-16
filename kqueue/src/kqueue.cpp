@@ -173,6 +173,11 @@ int kqueue::file_handle() const
   return m_kq;
 }
 
+bool kqueue::has_work() const
+{
+  return !m_handlers.empty();
+}
+
 void read_handler(int fd, int sz, int err)
 {
   if (err) {
@@ -200,58 +205,3 @@ void read_handler(int fd, int sz, int err)
     close(fd);
   }
 }
-
-/*
-int main(int, char const *[])
-{
-  whw::kqueue q(100);
-  int s[2];
-  socketpair(PF_LOCAL, SOCK_STREAM, 0, s);
-  int reader = s[0];
-  int writer = s[1];
-  int nb = 1;
-  ioctl(writer, FIONBIO, &nb);  
-  ioctl(reader, FIONBIO, &nb);
-
-  int connector = socket(PF_INET, SOCK_STREAM, 0);
-  ioctl(connector, FIONBIO, &nb);
-
-  q.register_event(connector, EVFILT_WRITE, [](int fd, int sz, int err) {
-      if (err) {
-	printf("error in event: code %d\n", err);
-	return;
-      }
-      printf("Event WRITE triggerred, buffer size is %d\n", sz);
-      sockaddr_in addr;
-      socklen_t addr_len = sizeof(addr);
-      if (-1 == getpeername(fd, (sockaddr *)&addr, &addr_len)) {
-	//printf("ERRPOR : %s\n", strerror(errno));       
-      }
-    }, true);
-  /*
-  q.register_event(writer, EVFILT_WRITE, [&q](int fd, int sz, int err) {
-      if (err)
-	return;
-      q.unregister_event(fd, EVFILT_WRITE);
-      q.register_event(fd, EVFILT_READ, &read_handler);
-      char const msg[] = "ping!";
-      write(fd, msg, sizeof(msg));
-
-
-    });
-
-  q.register_event(reader, EVFILT_READ, &read_handler);
-  
-  ///
-
-  sockaddr_in addr;
-  addr.sin_family = PF_INET;
-  addr.sin_port = htons(30416);
-  addr.sin_addr.s_addr = inet_addr("192.168.3.238");
-  connect(connector, (sockaddr *)&addr, sizeof(addr));
-
-  while (true) {
-    q.dispatch(milliseconds(100));
-  }
-}
-*/

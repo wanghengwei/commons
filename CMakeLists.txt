@@ -9,13 +9,13 @@ if (${CMAKE_CXX_COMPILER_ID} STREQUAL "Clang")
    set (CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -stdlib=libc++")
 endif (${CMAKE_CXX_COMPILER_ID} STREQUAL "Clang")
 
-set (CMAKE_INSTALL_PREFIX .)
+set (CMAKE_INSTALL_PREFIX ${CMAKE_CURRENT_LIST_DIR})
 
 include_directories (.)
 link_directories (lib)
 
-add_subdirectory (pqueue/src)
+add_subdirectory (tests)
 
-add_subdirectory (tests/src)
+add_subdirectory (pqueue/src)
 
 add_subdirectory (kqueue/src)

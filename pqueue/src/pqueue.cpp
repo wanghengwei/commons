@@ -1,6 +1,12 @@
+//project headers
 #include <pqueue/pqueue.h>
+
+//sys
 #include <string.h>
+
+//std
 #include <algorithm>
+#include <string>
 
 using namespace std;
 
