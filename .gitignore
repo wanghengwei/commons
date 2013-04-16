@@ -16,6 +16,7 @@
 *~
 
 # build dir
+build/*
 **/build/*
 !**/build/README
 
