@@ -19,5 +19,7 @@
 build/*
 **/build/*
 !**/build/README
+**/Debug/*
+**/Release/*
 
 # test dir
