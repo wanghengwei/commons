@@ -1,27 +1,51 @@
 #pragma once
-#include "cursor.h"
-#include <map>
+#include <string>
 
+//represent a windows' window.
 class window
 {
-	window *m_parent;
 
-	std::map<int, window *> m_children;
+	HINSTANCE m_app;
+
+	HWND m_hwnd;
 
 public:
-	window(window *parent = nullptr);
+	window(HINSTANCE app_inst, std::wstring const &wnd_class_name, std::wstring const &title);
 
-	virtual ~window() {}
+	~window()
+	{
 
-	virtual cursor_t & cursor() { return m_parent->cursor(); }
+	}
 
-	virtual cursor_t const & cursor() const { return m_parent->cursor(); }
+	//return false if the handle of window is invalid
+	operator bool () const;
 
-	virtual window * parent() { return m_parent; }
+	HWND handle() const;
 
-	virtual window const * parent() const { return m_parent; };
+	//
+	void show(int show_style = SW_NORMAL);
+	
+	//called when WM_PAINT message occurred
+	virtual void on_paint()
+	{
 
-	virtual void render(HDC, PAINTSTRUCT const &);
+	}
 
-	virtual bool is_hot() const { return false; }
+	//called when WM_MOUSEMOVE msg occurred
+	virtual void on_mouse_move(int x, int y)
+	{
+
+	}
+
+	virtual void on_mouse_lbutton_down(int x, int y)
+	{
+
+	}
+
+private:
+	
+	int process_message(UINT msg, WPARAM wp, LPARAM lp);
+
+	static LRESULT CALLBACK wnd_proc_delegate(HWND, UINT, WPARAM, LPARAM);
 };
+

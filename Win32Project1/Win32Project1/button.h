@@ -1,8 +1,11 @@
 #pragma once
-#include "window.h"
+#include "widget.h"
 
-class button : public window
+class button : public widget
 {
+
 public:
-	button(window *parent) : window(parent) {}
+
+	button(std::string const &id, widget *parent) : widget(id, parent) {}
+
 };

@@ -1,6 +1,7 @@
 #include "stdafx.h"
 #include "Win32Project1.h"
-#include "sample_main_window.h"
+#include "main_window.h"
+#include "rect_button.h"
 #include <chrono>
 #include <thread>
 
@@ -20,7 +21,7 @@ void run_frame_announcement(HWND hwnd)
 {
 	new thread([hwnd]() {
 		auto tp = steady_clock::now();
-		auto const interval = milliseconds(1000/30);
+		auto const interval = milliseconds(1000/60);
 
 		while (true) {
 			tp += interval;
@@ -33,10 +34,13 @@ void run_frame_announcement(HWND hwnd)
 int WINAPI wWinMain(HINSTANCE app_instance, HINSTANCE, LPWSTR cmd_line, int show_style)
 {
 
-	sample_main_window main_win(app_instance, L"SampleWindow");
+	main_window main_win(app_instance);
 
 	if (!main_win)
 		return -1;
+
+	rect_button *btn = new rect_button("btn1", &main_win);
+	main_win.add(btn);
 
 	main_win.show(show_style);
 

@@ -30,16 +30,7 @@
     <ClInclude Include="Win32Project1.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="base_window.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
     <ClInclude Include="point.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="cursor.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="window.h">
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="rect.h">
@@ -51,7 +42,22 @@
     <ClInclude Include="rect_button.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="sample_main_window.h">
+    <ClInclude Include="mouse_pointer.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="shape.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="widget.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="window.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="main_window.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="state.h">
       <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>
@@ -62,22 +68,25 @@
     <ClCompile Include="Win32Project1.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="base_window.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="cursor.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
     <ClCompile Include="rect.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="rect_button.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="sample_main_window.cpp">
+    <ClCompile Include="mouse_pointer.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="shape.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="widget.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="window.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="main_window.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>
