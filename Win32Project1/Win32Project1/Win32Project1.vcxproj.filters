@@ -33,16 +33,7 @@
     <ClInclude Include="point.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="rect.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
     <ClInclude Include="button.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="rect_button.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="mouse_pointer.h">
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="shape.h">
@@ -54,10 +45,28 @@
     <ClInclude Include="window.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="main_window.h">
+    <ClInclude Include="state.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="state.h">
+    <ClInclude Include="RenderAdaptor.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Rectangle.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="MainWindow.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="MousePointer.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Color.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Events.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="RectButton.h">
       <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>
@@ -66,15 +75,6 @@
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="Win32Project1.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="rect.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="rect_button.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="mouse_pointer.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="shape.cpp">
@@ -86,7 +86,22 @@
     <ClCompile Include="window.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="main_window.cpp">
+    <ClCompile Include="Rectangle.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="MainWindow.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="MousePointer.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="RectButton.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="RenderAdaptor.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Color.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>

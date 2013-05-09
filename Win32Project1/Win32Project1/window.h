@@ -1,8 +1,10 @@
 #pragma once
 #include <string>
 
+class RenderAdaptor;
+
 //represent a windows' window.
-class window
+class Window
 {
 
 	HINSTANCE m_app;
@@ -10,25 +12,38 @@ class window
 	HWND m_hwnd;
 
 public:
-	window(HINSTANCE app_inst, std::wstring const &wnd_class_name, std::wstring const &title);
 
-	~window()
+	Window(HINSTANCE app_inst, std::wstring const &wnd_class_name, std::wstring const &title);
+
+	~Window()
 	{
 
 	}
 
-	//return false if the handle of window is invalid
 	operator bool () const;
 
 	HWND handle() const;
 
-	//
 	void show(int show_style = SW_NORMAL);
+
+	int GetHeight() const
+	{
+		RECT r;
+		GetWindowRect(m_hwnd, &r);
+		return r.top - r.bottom;
+	}
+
+	int GetWidth() const
+	{
+		RECT r;
+		GetWindowRect(m_hwnd, &r);
+		return r.right - r.left;
+	}
 	
-#pragma region The methods which derived classes must override
+#pragma region 派生类选择继承以下方法
 
 	//called when WM_PAINT message occurred
-	virtual void on_paint()
+	virtual void on_paint(RenderAdaptor * renderer)
 	{
 
 	}

@@ -1,9 +1,10 @@
 #include "stdafx.h"
 #include "window.h"
+#include "RenderAdaptor.h"
 
 using namespace std;
 
-window::window(HINSTANCE app_inst, wstring const &wnd_class_name, std::wstring const &title) : m_app(app_inst)
+Window::Window(HINSTANCE app_inst, wstring const &wnd_class_name, std::wstring const &title) : m_app(app_inst)
 {
 
 	WNDCLASS wc = {};
@@ -18,39 +19,45 @@ window::window(HINSTANCE app_inst, wstring const &wnd_class_name, std::wstring c
 	SetWindowLongPtr(m_hwnd, GWLP_USERDATA, LONG(this));
 }
 
-window::operator bool () const
+Window::operator bool () const
 {
 	return 0 != m_hwnd;
 }
 
-HWND window::handle() const
+HWND Window::handle() const
 {
 	return m_hwnd;
 }
 
-void window::show(int show_style)
+void Window::show(int show_style)
 {
 	ShowWindow(m_hwnd, show_style);
 }
 
-LRESULT window::wnd_proc_delegate(HWND hwnd, UINT msg, WPARAM wp, LPARAM lp)
+LRESULT Window::wnd_proc_delegate(HWND hwnd, UINT msg, WPARAM wp, LPARAM lp)
 {
 	auto p = GetWindowLongPtr(hwnd, GWLP_USERDATA);
 	if (!p) {
 		return DefWindowProc(hwnd, msg, wp, lp);
 	}
 	else {
-		window *self = reinterpret_cast<window *>(p);
+		Window *self = reinterpret_cast<Window *>(p);
 		return self->process_message(msg, wp, lp);
 	}
 }
 
-int window::process_message(UINT msg, WPARAM wp, LPARAM lp)
+int Window::process_message(UINT msg, WPARAM wp, LPARAM lp)
 {
 	switch(msg) 
 	{
 	case WM_PAINT:
-		on_paint();
+		{
+			PAINTSTRUCT ps;
+			HDC hdc = BeginPaint(handle(), &ps);
+			static RenderAdaptor *r = new RenderAdaptor(hdc);
+			on_paint(r);
+			EndPaint(handle(), &ps);
+		}
 		break;
 	case WM_MOUSEMOVE:
 		on_mouse_move(GET_X_LPARAM(lp), GET_Y_LPARAM(lp));

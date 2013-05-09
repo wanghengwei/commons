@@ -1,12 +1,13 @@
 #include "stdafx.h"
-#include "shape.h"
+#include "Shape.h"
 
 
-shape::shape(void)
+Shape::Shape(void)
 {
 }
 
 
-shape::~shape(void)
+Shape::~Shape(void)
 {
 }
+

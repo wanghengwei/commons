@@ -77,14 +77,17 @@
     <Text Include="ReadMe.txt" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Color.h" />
+    <ClInclude Include="Events.h" />
+    <ClInclude Include="RenderAdaptor.h" />
     <ClInclude Include="state.h" />
     <ClInclude Include="window.h" />
     <ClInclude Include="button.h" />
-    <ClInclude Include="mouse_pointer.h" />
-    <ClInclude Include="main_window.h" />
+    <ClInclude Include="MousePointer.h" />
+    <ClInclude Include="MainWindow.h" />
     <ClInclude Include="point.h" />
-    <ClInclude Include="rect.h" />
-    <ClInclude Include="rect_button.h" />
+    <ClInclude Include="Rectangle.h" />
+    <ClInclude Include="RectButton.h" />
     <ClInclude Include="Resource.h" />
     <ClInclude Include="shape.h" />
     <ClInclude Include="stdafx.h" />
@@ -93,11 +96,13 @@
     <ClInclude Include="widget.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Color.cpp" />
+    <ClCompile Include="RenderAdaptor.cpp" />
     <ClCompile Include="window.cpp" />
-    <ClCompile Include="mouse_pointer.cpp" />
-    <ClCompile Include="main_window.cpp" />
-    <ClCompile Include="rect.cpp" />
-    <ClCompile Include="rect_button.cpp" />
+    <ClCompile Include="MousePointer.cpp" />
+    <ClCompile Include="MainWindow.cpp" />
+    <ClCompile Include="Rectangle.cpp" />
+    <ClCompile Include="RectButton.cpp" />
     <ClCompile Include="shape.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>

@@ -1,12 +1,14 @@
 #pragma once
+#include "Events.h"
+#include <functional>
 
-class widget;
+class Widget;
 
 struct state
 {
-	widget *hot_widget;
+	Widget *hot_widget;
 
-	widget *active_widget;
+	Widget *active_widget;
 
 	int background_index;
 
@@ -16,5 +18,16 @@ struct state
 	{
 		pre_defined_background[0] = CreateSolidBrush(RGB(0, 255, 255));
 		pre_defined_background[1] = CreateSolidBrush(RGB(255, 0, 0));
+	}
+};
+
+typedef std::function<void ()> Output;
+
+class StateMachine
+{
+public:
+	virtual Output Transit(PaintEvent const &)
+	{
+		return Output();
 	}
 };

@@ -1,25 +1,19 @@
 #include "stdafx.h"
-#include "widget.h"
-#include "shape.h"
+#include "Widget.h"
+#include "MousePointer.h"
+#include "Shape.h"
 #include <algorithm>
 
 using namespace std;
 
-void widget::render(HDC hdc, PAINTSTRUCT const &ps)
+Widget * Widget::find_widget_at(Point const &p)
 {
-	for (auto p : m_children) {
-		p.second->render(hdc, ps);
-	}
-}
-
-widget * widget::find_widget_at(point_t const &p)
-{
-	//assume THIS widget is hot. We must find out that which child is hot.
+	//assume THIS Widget is hot. We must find out that which child is hot.
 	auto it = find_if(children().begin(), children().end(), 
-		[p](children_map::value_type const &v) 
+		[p](WidgetMap::value_type const &v) 
 	{
-		auto s = dynamic_cast<shape *>(v.second);
-		return s && s->contains(p);
+		auto s = dynamic_cast<Shape *>(v.second);
+		return s && s->Contains(p);
 	});
 
 	if (it == children().end()) {

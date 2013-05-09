@@ -1,21 +1,40 @@
 #pragma once
-#include "point.h"
+#include "Point.h"
 
-class shape
+class RenderAdaptor;
+struct Color;
+
+class Shape
 {
+
+	Point mPosition;
+
 public:
-	shape();
+	
+	Shape();
 
-	virtual ~shape();
+	explicit Shape(Point const &pos) : mPosition(pos) {}
 
-	virtual void position(point_t const &base_pos)
+	Shape(int x, int y) : mPosition(Point(x, y)) {}
+
+	virtual ~Shape();
+
+	Point const & Position() const { return mPosition; }
+
+	virtual void Position(Point const &pos)
 	{
-
+		mPosition = pos;
 	}
 
-	virtual bool contains(point_t const &) const
-	{
-		return false;
-	}
+	void Position(int x, int y) { Position(Point(x, y)); }
+
+#pragma region 必须实现的方法
+
+	virtual bool Contains(Point const &) const = 0;
+
+	virtual void Draw(RenderAdaptor &, Color const &) const = 0;
+
+#pragma endregion
+
 };
 

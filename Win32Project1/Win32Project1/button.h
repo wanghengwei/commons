@@ -1,11 +1,11 @@
 #pragma once
-#include "widget.h"
+#include "Widget.h"
 
-class button : public widget
+class button : public Widget
 {
 
 public:
 
-	button(std::string const &id, widget *parent) : widget(id, parent) {}
+	button(std::string const &id, Widget *parent) : Widget(id, parent) {}
 
 };
