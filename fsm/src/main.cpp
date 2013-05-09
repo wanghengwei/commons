@@ -1,111 +1,54 @@
-#include <string>
+#include <boost/statechart/transition.hpp>
+#include <boost/statechart/state_machine.hpp>
+#include <boost/statechart/event.hpp>
+#include <boost/statechart/simple_state.hpp>
 #include <iostream>
-#include <vector>
-#include <typeinfo>
+#include <chrono>
 
 using namespace std;
+using namespace std::chrono;
+namespace sc = boost::statechart;
 
-struct event
+#define CTOR(name) name() { cout << "Enter " << #name << endl; }	\
+  ~name() { cout << "Exit " << #name << endl; }
+
+struct HalfPressEvent : sc::event<HalfPressEvent> {};
+
+struct ReleaseEvent : sc::event<ReleaseEvent> {};
+
+struct NotShooting;
+
+struct Camera : sc::state_machine<Camera, NotShooting>
 {
+  CTOR(Camera)
 
+  void f(HalfPressEvent const &) { cout << "f()" << endl; }
 };
 
-struct click_button_event : public event {};
-
-struct other_event : public event {};
-
-struct state
+struct Shooting : sc::simple_state<Shooting, Camera>
 {
+  CTOR(Shooting)
 
-  virtual ~state()
-  {
-
-  }
-
-  virtual void on_process(event const &)
-  {
-
-  }
+  typedef sc::transition<ReleaseEvent, NotShooting> reactions;
 };
 
-struct red_bg_state : public state 
+struct NotShooting : sc::simple_state<NotShooting, Camera>
 {
+  CTOR(NotShooting)
 
-  void on_process(click_button_event const &)
-  {
-    cout << "change background to blue\n";
-  }
-
+  typedef sc::transition<HalfPressEvent, Shooting, Camera, &Camera::f> reactions;
 };
 
-struct blue_bg_state : public state 
+int main()
 {
 
-  template<typename E>
-  static void on_process(E const &)
-  {
+  Camera camera;
 
-  }
+  camera.initiate();
 
-  template<>
-  static void on_process<click_button_event>(click_button_event const &)
-  {
-    cout << "button clicked\n";
-  }
+  camera.process_event(HalfPressEvent());
 
-};
+  camera.terminate();
 
-
-
-template<typename States, typename Current>
-struct state_machine
-{
-
-  template<typename Event>
-  static void process(Event const &e)
-  {
-    Current::on_process(e);
-  }
-
-};
-
-struct nil {};
-
-template<typename H, typename T>
-struct sv
-{
-  typedef H head;
-  typedef T tail;
-
-};
-
-
-template<typename V, int N>
-struct get_tail
-{
-  typedef typename get_tail<typename V::tail, N - 1>::type type;
-};
-
-template<typename V>
-struct get_tail<V, 0>
-{
-  typedef V type;
-};
-
-template<typename V, int N>
-struct get
-{
-  typedef typename get_tail<V, N>::type::head type;
-};
-
-#define V2(A1, A2) sv<A1, sv<A2, nil>>
-#define V3(A1, A2, A3) sv<A1, sv<A2, sv<A3, nil>>>
-
-int main(int, char *[])
-{
-
-  typedef state_machine<V2(blue_bg_state, red_bg_state), blue_bg_state> M;
-  M::process(click_button_event());
   return 0;
-
 }
