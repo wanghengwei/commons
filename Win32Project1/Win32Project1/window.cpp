@@ -56,7 +56,7 @@ int window::process_message(UINT msg, WPARAM wp, LPARAM lp)
 		on_mouse_move(GET_X_LPARAM(lp), GET_Y_LPARAM(lp));
 		break;
 	case WM_LBUTTONDOWN:
-		on_mouse_lbutton_down(GET_X_LPARAM(lp), GET_Y_LPARAM(lp));
+		on_mouse_left_down(GET_X_LPARAM(lp), GET_Y_LPARAM(lp));
 		break;
 	case WM_DESTROY:
 		PostQuitMessage(0);

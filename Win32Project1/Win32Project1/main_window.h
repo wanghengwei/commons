@@ -57,7 +57,7 @@ public:
 		hot_widget = find_widget_at(pointer().position());
 	}
 
-	void on_mouse_lbutton_down(int x, int y) override
+	void on_mouse_left_down(int x, int y) override
 	{
 		pointer().position(x, y);
 		active_widget = find_widget_at(point_t(x, y));

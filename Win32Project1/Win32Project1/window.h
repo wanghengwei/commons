@@ -25,6 +25,8 @@ public:
 	//
 	void show(int show_style = SW_NORMAL);
 	
+#pragma region The methods which derived classes must override
+
 	//called when WM_PAINT message occurred
 	virtual void on_paint()
 	{
@@ -37,10 +39,12 @@ public:
 
 	}
 
-	virtual void on_mouse_lbutton_down(int x, int y)
+	virtual void on_mouse_left_down(int x, int y)
 	{
 
 	}
+
+#pragma endregion
 
 private:
 	

@@ -40,6 +40,7 @@ int WINAPI wWinMain(HINSTANCE app_instance, HINSTANCE, LPWSTR cmd_line, int show
 		return -1;
 
 	rect_button *btn = new rect_button("btn1", &main_win);
+	btn->position(300, 300);
 	main_win.add(btn);
 
 	main_win.show(show_style);

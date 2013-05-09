@@ -8,7 +8,8 @@ struct state;
 //widget
 class widget
 {
-public:
+
+public: //Typedef
 	typedef std::map<std::string, widget *> children_map;
 
 private:
@@ -19,23 +20,22 @@ private:
 	std::string m_id;
 
 public:
+
+#pragma region ctor & dtor
+
 	///
-	widget(std::string const& id, widget *parent = nullptr) : m_id(id), m_parent(parent)
-	{
-		
-	}
+	widget(std::string const& id, widget *parent = nullptr) : m_id(id), m_parent(parent) {}
 
 	virtual ~widget() {}
 
-	///
+#pragma endregion
+
 	std::string id() const { return m_id; }
 
 	widget * parent() { return m_parent; }
-
 	widget const * parent() const { return m_parent; };
 
 	children_map & children() { return m_children; }
-
 	children_map const & children() const { return m_children; }
 
 	widget & add(widget *child)
@@ -44,6 +44,8 @@ public:
 
 		return *this;
 	}
+
+#pragma region Recursive methods
 
 	///
 	virtual mouse_pointer & pointer()
@@ -71,6 +73,8 @@ public:
 	}
 
 	virtual void render(HDC, PAINTSTRUCT const &);
+
+#pragma endregion
 
 protected:
 
