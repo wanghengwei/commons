@@ -12,17 +12,19 @@ namespace sc = boost::statechart;
 #define CTOR(name) name() { cout << "Enter " << #name << endl; }	\
   ~name() { cout << "Exit " << #name << endl; }
 
+//events
+
 struct HalfPressEvent : sc::event<HalfPressEvent> {};
 
 struct ReleaseEvent : sc::event<ReleaseEvent> {};
+
+//end events
 
 struct NotShooting;
 
 struct Camera : sc::state_machine<Camera, NotShooting>
 {
   CTOR(Camera)
-
-  void f(HalfPressEvent const &) { cout << "f()" << endl; }
 };
 
 struct Shooting : sc::simple_state<Shooting, Camera>
@@ -36,7 +38,7 @@ struct NotShooting : sc::simple_state<NotShooting, Camera>
 {
   CTOR(NotShooting)
 
-  typedef sc::transition<HalfPressEvent, Shooting, Camera, &Camera::f> reactions;
+  typedef sc::transition<HalfPressEvent, Shooting> reactions;
 };
 
 int main()

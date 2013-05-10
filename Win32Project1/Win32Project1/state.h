@@ -30,4 +30,10 @@ public:
 	{
 		return Output();
 	}
+
+	virtual Output Transit(ReSizedEvent const &)
+	{
+		return Output();
+	}
+
 };

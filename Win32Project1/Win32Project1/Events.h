@@ -14,3 +14,9 @@ public:
 
 	RenderAdaptor & Renderer() const { return *mRenderer; }
 };
+
+struct ReSizedEvent
+{
+	int Height;
+	int Width;
+};

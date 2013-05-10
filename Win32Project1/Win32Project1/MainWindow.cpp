@@ -11,6 +11,6 @@ MainWindow::MainWindow(HINSTANCE app_inst) : Window(app_inst, L"MainWindow", L"s
 	//…Ë÷√≥ı º◊¥Ã¨
 	mState.Background = Color::Blue;
 
-	Height(Window::GetHeight());
-	Width(Window::GetWidth());
+	//SetHeight(Window::GetHeight());
+	//SetWidth(Window::GetWidth());
 }

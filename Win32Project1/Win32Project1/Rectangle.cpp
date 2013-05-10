@@ -4,5 +4,5 @@
 
 void Rectangle::Draw(RenderAdaptor &renderer, Color const &c) const
 {
-	renderer.DrawRectangle(Left(), Right(), Bottom(), Right(), c);
+	renderer.DrawRectangle(Left(), Right(), Bottom(), Top(), c);
 }

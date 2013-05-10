@@ -9,7 +9,7 @@
 #include "RenderAdaptor.h"
 #include <functional>
 
-class MainWindow : public Window, public Widget, public StateMachine, protected Rectangle
+class MainWindow : public Window<MainWindow>, public Widget, public StateMachine, protected Rectangle
 {
 
 	struct State
@@ -60,35 +60,43 @@ public:
 		};
 	}
 
+	Output Transit(ReSizedEvent const &e) override
+	{
+		return [&e, this]()
+		{
+			this->SetHeight(e.Height).SetWidth(e.Width);
+		};
+	};
+
 #pragma region Win32窗体事件处理
 
-	void on_paint(RenderAdaptor * renderer) override
-	{
-		//PAINTSTRUCT ps;
-		//HDC hdc = BeginPaint(handle(), &ps);
-		//render(hdc, ps);
-		//EndPaint(handle(), &ps);
+	//void on_paint(RenderAdaptor * renderer) override
+	//{
+	//	//PAINTSTRUCT ps;
+	//	//HDC hdc = BeginPaint(handle(), &ps);
+	//	//render(hdc, ps);
+	//	//EndPaint(handle(), &ps);
 
-		//临时这么做
-		Height(Window::GetHeight());
-		Width(Window::GetWidth());
+	//	//临时这么做
+	//	Height(Window::GetHeight());
+	//	Width(Window::GetWidth());
 
-		auto output = Transit(PaintEvent(renderer));
+	//	auto output = Transit(PaintEvent(renderer));
 
-		output();
-	}
+	//	output();
+	//}
 
-	void on_mouse_move(int x, int y) override
-	{
-		pointer().Position(x, y);
-		//hot_widget = find_widget_at(pointer().Position());
-	}
+	//void on_mouse_move(int x, int y) override
+	//{
+	//	pointer().Position(x, y);
+	//	//hot_widget = find_widget_at(pointer().Position());
+	//}
 
-	void on_mouse_left_down(int x, int y) override
-	{
-		pointer().Position(x, y);
-		//active_widget = find_widget_at(Point(x, y));
-	}
+	//void on_mouse_left_down(int x, int y) override
+	//{
+	//	pointer().Position(x, y);
+	//	//active_widget = find_widget_at(Point(x, y));
+	//}
 
 #pragma endregion
 

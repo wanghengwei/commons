@@ -21,11 +21,11 @@ public:
 
 	int Height() const { return mOppositeCorner.y - Position().y; }
 	
-	void Height(int h) { mOppositeCorner.y = Position().y + h; }
+	Rectangle & SetHeight(int h) { mOppositeCorner.y = Position().y + h; return *this; }
 	
 	int Width() const { return mOppositeCorner.x - Position().x; }
 	
-	void Width(int w) { mOppositeCorner.x = Position().x + w; }
+	Rectangle & SetWidth(int w) { mOppositeCorner.x = Position().x + w; return *this; }
 
 	int Left() const { return Position().x; }
 	
@@ -46,8 +46,8 @@ public:
 
 		Shape::Position(p);
 
-		Height(h);
-		Width(w);
+		SetHeight(h);
+		SetWidth(w);
 	}
 
 	using Shape::Position;
