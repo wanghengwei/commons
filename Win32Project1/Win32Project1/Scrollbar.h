@@ -4,7 +4,7 @@
 #include "state.h"
 #include <string>
 
-class Scrollbar : public Widget, public Rectangle, public StateMachine
+class Scrollbar : public Widget, public Rectangle, public OldStateMachine
 {
 	Rectangle mSlider;
 	Rectangle mBack;

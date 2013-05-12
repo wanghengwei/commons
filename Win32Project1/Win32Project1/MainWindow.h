@@ -12,10 +12,14 @@
 class MainWindow : public Window<MainWindow>, public Widget, public StateMachine, protected Rectangle
 {
 
-	struct State
+	struct State : TBaseState<State>
 	{
+		typedef TVector<
+			Transition<PaintEvent, State>
+		> Reactions;
+
 		Color Background;
-	} mState;
+	};
 
 	MousePointer *mPointer;
 
@@ -43,30 +47,30 @@ public:
 	//	return *this;
 	//}
 
-	Output Transit(PaintEvent const& e) override
-	{
-		//Don't change current state
-		return [&e, this]() 
-		{
-			this->Draw(e.Renderer(), this->mState.Background); 
+	//void Transit(PaintEvent const& e) override
+	//{
+	//	//Don't change current state
+	//	return [&e, this]() 
+	//	{
+	//		this->Draw(e.Renderer(), this->mState.Background); 
 
-			for (auto w : children()) {
-				auto sm = dynamic_cast<StateMachine *>(w.second);
-				if (sm) {
-					auto output = sm->Transit(e);
-					output();
-				}
-			}
-		};
-	}
+	//		for (auto w : children()) {
+	//			auto sm = dynamic_cast<OldStateMachine *>(w.second);
+	//			if (sm) {
+	//				auto output = sm->Transit(e);
+	//				output();
+	//			}
+	//		}
+	//	};
+	//}
 
-	Output Transit(ReSizedEvent const &e) override
-	{
-		return [&e, this]()
-		{
-			this->SetHeight(e.Height).SetWidth(e.Width);
-		};
-	};
+	//void Transit(ReSizedEvent const &e) override
+	//{
+	//	return [&e, this]()
+	//	{
+	//		this->SetHeight(e.Height).SetWidth(e.Width);
+	//	};
+	//};
 
 #pragma region Win32窗体事件处理
 

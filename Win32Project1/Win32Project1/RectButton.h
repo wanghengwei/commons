@@ -3,7 +3,7 @@
 #include "Rectangle.h"
 #include "state.h"
 
-class RectButton : public button, public Rectangle, public StateMachine
+class RectButton : public button, public Rectangle, public OldStateMachine
 {
 public:
 	RectButton(std::string const &id, Widget *parent) : 

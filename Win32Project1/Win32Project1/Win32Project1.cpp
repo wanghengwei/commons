@@ -5,14 +5,6 @@
 #include "Scrollbar.h"
 #include <chrono>
 #include <thread>
-#define BOOST_STATECHART_USE_NATIVE_RTTI
-#include <boost/statechart/state_machine.hpp>
-#include <boost/statechart/simple_state.hpp>
-#include <boost/statechart/transition.hpp>
-#include <boost/mpl/list.hpp>
-
-namespace sc = boost::statechart;
-namespace mpl = boost::mpl;
 
 using namespace std;
 using namespace std::chrono;
@@ -40,51 +32,30 @@ void run_frame_announcement(HWND hwnd)
 	});
 }
 
-struct AEvent : sc::event<AEvent> {};
+struct AEvent : BaseEvent {};
 
-struct BEvent : sc::event<BEvent> {};
-
-struct Greeting;
-
-struct MyMachine : sc::state_machine<MyMachine, Greeting> {};
-
-struct Goodbye : sc::simple_state<Goodbye, MyMachine> 
+struct AState : TBaseState<AState>
 {
-	Goodbye()
-	{
-		OutputDebugString(L"Goodbye()");
-	}
-	~Goodbye()
-	{
-		OutputDebugString(L"~Goodbye()");
-	}
-};
 
-struct Greeting : sc::simple_state<Greeting, MyMachine>
-{
-	Greeting()
+	void OnEnter() { OutputDebugString(L"Enter AState!"); }
+
+	typedef TVector<
+		Transition<AEvent, AState, &AState::OnEnter>
+	> Reactions;
+
+	AState()
 	{
-		OutputDebugString(L"Greeting()");
-	}
-	~Greeting()
-	{
-		OutputDebugString(L"~Greeting()");
+		OutputDebugString(L"AState()");
 	}
 
-	typedef mpl::list<
-		sc::transition<AEvent, Goodbye>,
-		sc::transition<BEvent, Greeting>
-	> reactions;
+	~AState()
+	{
+		OutputDebugString(L"~AState()");
+	}
 };
 
 int WINAPI wWinMain(HINSTANCE app_instance, HINSTANCE, LPWSTR cmd_line, int show_style)
 {
-
-	MyMachine mm;
-	mm.initiate();
-	mm.process_event(BEvent());
-	mm.process_event(AEvent());
-
 	MainWindow main_win(app_instance);
 
 	if (!main_win)

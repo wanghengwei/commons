@@ -1,56 +1,67 @@
-#include <boost/statechart/transition.hpp>
-#include <boost/statechart/state_machine.hpp>
-#include <boost/statechart/event.hpp>
-#include <boost/statechart/simple_state.hpp>
+#include "Event.h"
+#include "State.h"
+#include "Transition.h"
+#include "StateMachine.h"
 #include <iostream>
-#include <chrono>
+#include <typeinfo>
 
 using namespace std;
-using namespace std::chrono;
-namespace sc = boost::statechart;
 
-#define CTOR(name) name() { cout << "Enter " << #name << endl; }	\
-  ~name() { cout << "Exit " << #name << endl; }
+#define DEFAULT_CTOR_WITH_LOG(name) name() { std::cout << #name << "()\n"; }
+#define DEFAULT_DTOR_WITH_LOG(name) ~name() { std::cout << "~" << #name << "()\n"; }
 
-//events
 
-struct HalfPressEvent : sc::event<HalfPressEvent> {};
 
-struct ReleaseEvent : sc::event<ReleaseEvent> {};
+struct AEvent : BaseEvent {};
+struct BEvent : BaseEvent {};
 
-//end events
+struct AState;
 
-struct NotShooting;
-
-struct Camera : sc::state_machine<Camera, NotShooting>
+struct MyMachine : StateMachine<AState>
 {
-  CTOR(Camera)
+  void f() { cout << "f()\n"; }
 };
 
-struct Shooting : sc::simple_state<Shooting, Camera>
+struct BState : TBaseState<BState, MyMachine>
 {
-  CTOR(Shooting)
+  typedef TVector<
+    Transition<AEvent, AState, MyMachine, &MyMachine::f>, 
+    Transition<BEvent, BState, MyMachine, &MyMachine::f>
+    > Reactions;
 
-  typedef sc::transition<ReleaseEvent, NotShooting> reactions;
+  DEFAULT_CTOR_WITH_LOG(BState);
+  DEFAULT_DTOR_WITH_LOG(BState);
 };
 
-struct NotShooting : sc::simple_state<NotShooting, Camera>
+struct AState : TBaseState<AState, MyMachine>
 {
-  CTOR(NotShooting)
 
-  typedef sc::transition<HalfPressEvent, Shooting> reactions;
+  static void LogStateChanged(BaseState *)
+  {
+    cout << "Current state changed to be BState\n";
+  }
+
+  typedef TVector<
+    Transition<AEvent, AState, MyMachine, &MyMachine::f>, 
+    Transition<BEvent, BState, MyMachine, &MyMachine::f>
+    > Reactions;
+
+  DEFAULT_CTOR_WITH_LOG(AState);
+
+  DEFAULT_DTOR_WITH_LOG(AState);
+
 };
+
+
+
+
 
 int main()
 {
 
-  Camera camera;
-
-  camera.initiate();
-
-  camera.process_event(HalfPressEvent());
-
-  camera.terminate();
+  MyMachine sm;
+  sm.Transit(AEvent());
+  sm.Transit(BEvent());
 
   return 0;
 }

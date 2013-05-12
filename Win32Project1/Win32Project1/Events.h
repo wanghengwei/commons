@@ -1,9 +1,14 @@
 #pragma once
 #include "RenderAdaptor.h"
 
+struct BaseEvent 
+{
+	virtual ~BaseEvent() {}
+};
+
 struct ClickButtonEvent {};
 
-class PaintEvent 
+class PaintEvent : public BaseEvent
 {
 	
 	RenderAdaptor *mRenderer;
@@ -15,7 +20,7 @@ public:
 	RenderAdaptor & Renderer() const { return *mRenderer; }
 };
 
-struct ReSizedEvent
+struct ReSizedEvent : BaseEvent
 {
 	int Height;
 	int Width;
